@@ -12,6 +12,13 @@ struct Recipe: Codable, Identifiable {
     let name: String
     let imageURLSmall: String
     let cuisine: String
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "uuid"
+        case name
+        case imageURLSmall = "photo_url_small"
+        case cuisine
+    }
 }
 
 struct MockData {
