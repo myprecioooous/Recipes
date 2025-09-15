@@ -46,14 +46,38 @@
 import SwiftUI
 
 struct RecipesListView: View {
+    @ObservedObject private var viewModel = RecipeListViewModel()
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            List(viewModel.recipeResponse.recipes) { recipe in
+                HStack(alignment: .top) {
+                    AsyncImage(url: URL(string: recipe.imageURLSmall))
+                        .frame(width: 100, height: 100)
+                        .aspectRatio(contentMode: .fill)
+                        .cornerRadius(8)
+                    
+                    VStack(alignment: .leading) {
+                        Text(recipe.name)
+                            .font(.title3)
+                        Text(recipe.cuisine)
+                            .foregroundStyle(.gray)
+                    }
+                    .padding()
+                }
+                
+            }
+            .navigationTitle("Recipes")
+            .task {
+                do {
+                    try await viewModel.loadRecipes()
+                    print("Here are the recipes \(viewModel.recipeResponse.recipes)")
+                } catch {
+                    print("There's an error with fetching. \(error.localizedDescription)")
+                }
+            }
         }
-        .padding()
+        
     }
 }
 
