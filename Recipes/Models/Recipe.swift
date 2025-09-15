@@ -21,6 +21,10 @@ struct Recipe: Codable, Identifiable {
     }
 }
 
+struct RecipesResponse: Codable {
+    let recipes: [Recipe]
+}
+
 struct MockData {
     static let recipeSample = Recipe(id: UUID(), name: "Banana Pancakes", imageURLSmall: "https://d3jbb8n5wk0qxi.cloudfront.net/photos/b6efe075-6982-4579-b8cf-013d2d1a461b/small.jpg", cuisine: "American")
     

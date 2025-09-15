@@ -46,11 +46,11 @@
 import SwiftUI
 
 struct RecipesListView: View {
-    @State private var recipes: [Recipe] = Recipes.MockData.recipes
+    @ObservedObject private var viewModel = RecipeListViewModel()
 
     var body: some View {
         NavigationStack {
-            List(recipes) { recipe in
+            List(viewModel.recipeResponse.recipes) { recipe in
                 HStack(alignment: .top) {
                     AsyncImage(url: URL(string: recipe.imageURLSmall))
                         .frame(width: 100, height: 100)
@@ -68,6 +68,14 @@ struct RecipesListView: View {
                 
             }
             .navigationTitle("Recipes")
+            .task {
+                do {
+                    try await viewModel.loadRecipes()
+                    print("Here are the recipes \(viewModel.recipeResponse.recipes)")
+                } catch {
+                    print("There's an error with fetching. \(error.localizedDescription)")
+                }
+            }
         }
         
     }

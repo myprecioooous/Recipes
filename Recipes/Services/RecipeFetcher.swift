@@ -16,15 +16,15 @@ class RecipeFetcher {
         baseURLStr + recipeFileName
     }
     
-    func fetchRecipes() async throws -> [Recipe] {
+    func fetchRecipes() async throws -> RecipesResponse {
         guard let url = URL(string: recipeURLStr) else {
             print("Throw an error here later")
-            return[]
+            return RecipesResponse(recipes: [])
         }
         
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
-        return try decoder.decode([Recipe].self, from: data)
+        return try decoder.decode(RecipesResponse.self, from: data)
         
     }
 }
