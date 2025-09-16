@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+//Fetches JSON
 final class RecipeFetcher {
     static let shared = RecipeFetcher()
     
