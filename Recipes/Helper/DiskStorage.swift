@@ -8,6 +8,7 @@
 import Foundation
 
 //Helper so we can save to disk
+//DiskStorage only knows how to talk to the filesystem.
 final class DiskStorage {
     private let fileManager = FileManager.default
     private let directory: URL
