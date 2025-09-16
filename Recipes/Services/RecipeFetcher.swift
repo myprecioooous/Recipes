@@ -7,10 +7,11 @@
 
 import SwiftUI
 
-class RecipeFetcher {
+final class RecipeFetcher {
     static let shared = RecipeFetcher()
-    let baseURLStr = "https://d3jbb8n5wk0qxi.cloudfront.net/"
-    let recipeFileName = "recipes.json"
+    
+    private let baseURLStr = "https://d3jbb8n5wk0qxi.cloudfront.net/"
+    private let recipeFileName = "recipes.json"
     
     var recipeURLStr: String {
         baseURLStr + recipeFileName
@@ -18,11 +19,10 @@ class RecipeFetcher {
     
     func fetchRecipes() async throws -> RecipesResponse {
         guard let url = URL(string: recipeURLStr) else {
-            print("Throw an error here later")
-            return RecipesResponse(recipes: [])
+            throw URLError(.badURL)
         }
         
-        let data = try Data(contentsOf: url)
+        let (data, _) = try await URLSession.shared.data(from: url)
         let decoder = JSONDecoder()
         return try decoder.decode(RecipesResponse.self, from: data)
         
