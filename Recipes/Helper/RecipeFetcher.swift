@@ -13,9 +13,11 @@ final class RecipeFetcher {
     
     private let baseURLStr = "https://d3jbb8n5wk0qxi.cloudfront.net/"
     private let recipeFileName = "recipes.json"
+    private let recipeMalformedFileName = "recipes-malformed.json"
     
     var recipeURLStr: String {
-        baseURLStr + recipeFileName
+        //baseURLStr + recipeFileName
+        baseURLStr + recipeMalformedFileName
     }
     
     func fetchRecipes() async throws -> RecipesResponse {
