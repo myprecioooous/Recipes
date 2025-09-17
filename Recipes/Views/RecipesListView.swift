@@ -52,19 +52,10 @@ struct RecipesListView: View {
         NavigationStack {
             List(viewModel.recipeResponse.recipes) { recipe in
                 HStack(alignment: .top) {
-                    AsyncImage(url: URL(string: recipe.imageURLSmall ?? "")) { image in
-                        image
-                            .resizable()
-                        
-                    } placeholder: {
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .resizable()
-                            .scaledToFit()
-                            .foregroundStyle(.gray)
-                    }
-                    .frame(width: 100, height: 100)
-                    .aspectRatio(contentMode: .fill)
-                    .cornerRadius(8)
+                    RecipeImageView(urlString: recipe.imageURLSmall ?? "")
+                        .frame(width: 100, height: 100)
+                        .aspectRatio(contentMode: .fill)
+                        .cornerRadius(8)
                     
                     VStack(alignment: .leading) {
                         Text(recipe.name)

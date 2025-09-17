@@ -5,6 +5,7 @@
 //  Created by Precious Camille De Los Reyes on 9/16/25.
 //
 
+import CryptoKit
 import SwiftUI
 
 //ImageCache orchestrates memory/disk/network layers
@@ -24,7 +25,7 @@ final class ImageCache {
         if let image = memoryCache.object(forKey: key) { return image }
         
         //Disk cache
-        let fileName = url.lastPathComponent
+        let fileName = url.absoluteString.sha256
         if let data = diskStorage.load(from: fileName), let image = UIImage(data: data) {
             memoryCache.setObject(image, forKey: key)
             return image
@@ -47,5 +48,13 @@ final class ImageCache {
         }
         
         return nil
+    }
+}
+
+extension String {
+    var sha256: String {
+        let data = Data(self.utf8)
+        let hash = SHA256.hash(data: data)
+        return hash.compactMap { String(format: "%02x", $0) }.joined()
     }
 }

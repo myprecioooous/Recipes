@@ -17,7 +17,7 @@ struct RecipeImageView: View {
             if let uiImage = image {
                 Image(uiImage: uiImage)
                     .resizable()
-                    .scaledToFill()
+                    
             } else {
                 Rectangle()
                     .fill(Color.gray.opacity(0.3))
