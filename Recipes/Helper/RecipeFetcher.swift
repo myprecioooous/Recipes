@@ -12,12 +12,14 @@ final class RecipeFetcher {
     static let shared = RecipeFetcher()
     
     private let baseURLStr = "https://d3jbb8n5wk0qxi.cloudfront.net/"
-    private let recipeFileName = "recipes.json"
-    private let recipeMalformedFileName = "recipes-malformed.json"
+    private let recipesFileName = "recipes.json"
+    private let recipesMalformedFileName = "recipes-malformed.json"
+    private let recipesmptyFileName = "recipes-empty.json"
     
     var recipeURLStr: String {
-        //baseURLStr + recipeFileName
-        baseURLStr + recipeMalformedFileName
+        baseURLStr + recipesFileName
+        //baseURLStr + recipesMalformedFileName
+        //baseURLStr + recipesmptyFileName
     }
     
     func fetchRecipes() async throws -> RecipesResponse {

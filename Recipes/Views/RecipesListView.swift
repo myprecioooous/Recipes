@@ -50,22 +50,28 @@ struct RecipesListView: View {
 
     var body: some View {
         NavigationStack {
-            List(viewModel.recipeResponse.recipes) { recipe in
-                HStack(alignment: .top) {
-                    RecipeImageView(urlString: recipe.imageURLSmall ?? "")
-                        .frame(width: 100, height: 100)
-                        .aspectRatio(contentMode: .fill)
-                        .cornerRadius(8)
-                    
-                    VStack(alignment: .leading) {
-                        Text(recipe.name)
-                            .font(.title3)
-                        Text(recipe.cuisine)
-                            .foregroundStyle(.gray)
+            ZStack {
+                List(viewModel.recipeResponse.recipes) { recipe in
+                    HStack(alignment: .top) {
+                        RecipeImageView(urlString: recipe.imageURLSmall ?? "")
+                            .frame(width: 100, height: 100)
+                            .aspectRatio(contentMode: .fill)
+                            .cornerRadius(8)
+                        
+                        VStack(alignment: .leading) {
+                            Text(recipe.name)
+                                .font(.title3)
+                            Text(recipe.cuisine)
+                                .foregroundStyle(.gray)
+                        }
+                        .padding()
                     }
-                    .padding()
+                    
                 }
-                
+
+                if viewModel.recipeResponse.recipes.isEmpty {
+                    EmptyView()
+                }
             }
             .navigationTitle("Recipes")
             .task {
