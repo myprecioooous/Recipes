@@ -8,8 +8,13 @@
 import CryptoKit
 import SwiftUI
 
+protocol ImageCaching {
+    func image(for url: URL) async -> UIImage?
+    
+}
+
 //ImageCache orchestrates memory/disk/network layers
-final class ImageCache {
+final class ImageCache: ImageCaching {
     static let shared = ImageCache()
     
     //Images are cached in-memory for speed

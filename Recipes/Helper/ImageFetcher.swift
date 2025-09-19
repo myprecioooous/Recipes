@@ -13,7 +13,11 @@ protocol ImageFetching {
 
 class ImageFetcher: ImageFetching {
     static let shared = ImageFetcher()
-    private let cache = ImageCache.shared
+    private let cache: ImageCaching
+    
+    init(cache: ImageCaching = ImageCache.shared) {
+        self.cache = cache
+    }
     
     func fetchImage(from urlString: String) async -> UIImage? {
         guard let url = URL(string: urlString) else { return nil }
