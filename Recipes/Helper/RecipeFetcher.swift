@@ -7,8 +7,13 @@
 
 import SwiftUI
 
+protocol RecipeFetching {
+    func fetchRecipes() async throws -> RecipesResponse
+}
+
 //Fetches JSON
-final class RecipeFetcher {
+final class RecipeFetcher: RecipeFetching {
+    
     static let shared = RecipeFetcher()
     
     private let baseURLStr = "https://d3jbb8n5wk0qxi.cloudfront.net/"
