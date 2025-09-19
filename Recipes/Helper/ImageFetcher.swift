@@ -7,7 +7,11 @@
 
 import SwiftUI
 
-class ImageFetcher {
+protocol ImageFetching {
+    func fetchImage(from urlString: String) async -> UIImage?
+}
+
+class ImageFetcher: ImageFetching {
     static let shared = ImageFetcher()
     private let cache = ImageCache.shared
     

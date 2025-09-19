@@ -12,6 +12,13 @@ struct RecipeImageView: View {
     let urlString: String
     @State private var image: UIImage?
     
+    private let fetcher: ImageFetching
+    
+    init(fetcher: ImageFetching = ImageFetcher.shared, urlString: String) {
+        self.fetcher = fetcher
+        self.urlString = urlString
+    }
+    
     var body: some View {
         Group {
             if let uiImage = image {
@@ -23,7 +30,7 @@ struct RecipeImageView: View {
                     .fill(Color.gray.opacity(0.3))
                     .overlay(ProgressView())
                     .task {
-                        image = await ImageFetcher.shared.fetchImage(from: urlString)
+                        image = await fetcher.fetchImage(from: urlString)
                     }
             }
         }
