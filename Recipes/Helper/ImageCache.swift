@@ -21,7 +21,11 @@ final class ImageCache: ImageCaching {
     private let memoryCache = NSCache<NSString, UIImage>()
     
     //Images are saved to disk manually - to disk manually. On next app launch, disk cache is checked before hitting network
-    private let diskStorage = DiskStorage()
+    private let diskStorage: DiskStoring
+    
+    init(diskStorage: DiskStoring = DiskStorage()) {
+        self.diskStorage = diskStorage
+    }
     
     func image(for url: URL) async ->  UIImage? {
         let key = url.absoluteString as NSString
