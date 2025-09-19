@@ -45,8 +45,10 @@
 
 import SwiftUI
 
-struct RecipesListView: View {
-    @ObservedObject private var viewModel = RecipeListViewModel()
+//Generic - can take any view model that conforms to RecipeListViewModeling
+struct RecipesListView<ViewModel: RecipeListViewModeling>: View {
+    //cannot do @StateObject var viewModel: RecipeListViewModeling directly - need a concrete class reference for @StateObject
+    @StateObject var viewModel: ViewModel
 
     var body: some View {
         NavigationStack {
@@ -88,5 +90,5 @@ struct RecipesListView: View {
 }
 
 #Preview {
-    RecipesListView()
+    RecipesListView(viewModel: RecipeListViewModel())
 }
