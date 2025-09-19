@@ -7,9 +7,14 @@
 
 import Foundation
 
+protocol DiskStoring {
+    func save(_ data: Data, to fileName: String) throws
+    func load(from fileName: String) -> Data?
+}
+
 //Helper so we can save to disk
 //DiskStorage only knows how to talk to the filesystem.
-final class DiskStorage {
+final class DiskStorage: DiskStoring {
     private let fileManager = FileManager.default
     private let directory: URL
     
@@ -36,7 +41,7 @@ final class DiskStorage {
     }
     
     //get url
-    func fileURL(for fileName: String) -> URL {
+    private func fileURL(for fileName: String) -> URL {
         return directory.appendingPathComponent(fileName)
     }
 }
