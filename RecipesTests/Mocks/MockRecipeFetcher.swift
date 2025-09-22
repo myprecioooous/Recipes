@@ -6,3 +6,20 @@
 //
 
 import Foundation
+
+@testable
+import Recipes
+
+final class MockRecipeFetcher: RecipeFetching {
+    var mockResponse: RecipesResponse?
+    var shouldThrow = false
+    
+    func fetchRecipes() async throws -> RecipesResponse {
+        if shouldThrow {
+            throw URLError(.badURL)     //or a custom type
+        }
+        
+        return mockResponse ?? RecipesResponse(recipes: [])
+    }
+    
+}
