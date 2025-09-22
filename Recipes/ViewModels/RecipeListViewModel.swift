@@ -8,11 +8,13 @@
 import Foundation
 
 //AnyObject tells SwiftUI that only class types can conform.
+@MainActor
 protocol RecipeListViewModeling: AnyObject, ObservableObject {
     var recipeResponse: RecipesResponse { get }
     func loadRecipes() async throws
 }
 
+@MainActor
 class RecipeListViewModel: RecipeListViewModeling {
     @Published private(set) var recipeResponse: RecipesResponse = RecipesResponse(recipes: [])
     
